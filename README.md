@@ -1,6 +1,6 @@
-# Todo List
+# TackleIt
 
-Todo list web application. Built with React, Django, and Django REST Framework. Note that I have not deployed this yet. However, the application can still runs locally.
+A todo list web application to manages daily life tasks.
 
 ## Features
 
@@ -8,38 +8,30 @@ The app allows users to create and delete todo tasks, as well as the ability to 
 
 ## Setup
 
-Please make sure `pipenv` and `npm` is installed. Then change directory into `backend/` and run the following to install all dependency for the backend.
+Please ensure you have Docker installed. Then run:
 
-```
-pipenv shell
-pipenv install
-```
-
-To install dependencies for the frontend, first change directory into `frontend/`. Then:
-
-```
-npm install
+```bash
+docker compose -f docker-compose.dev.yml up -d --build
 ```
 
-### Running the Application
+to build the images and start the frontend and backend containers for development. Then navigate to `localhost:3000` to access the application.
 
-First make sure the backend server is running by changing directory into `backend/`, then:
+Stop the containers with:
 
-```
-pipenv shell               # if not already activated
-python manage.py migrate   # to apply migration
-python manage.py runserver
-```
-
-Afterward, open a new terminal instance and start the application by changing directory into `frontend/`, then:
-
-```
-npm start
+```bash
+# Use the -v flag if you wish to remove all the volumes containing node modules and static assets
+docker compose -f docker-compose.dev.yml stop
 ```
 
-Note that the backend server is on `localhost:8000` and the Webpack server in the frontend is on `localhost:3000`
+Remove the containers with:
 
-## Remaining things to do for this project
+```bash
+# Use the -v flag if you wish to remove all the volumes containing node modules and static assets
+docker compose -f docker-compose.dev.yml down
+```
 
-- [ ] Add more thorough testings in the frontend
-- [ ] Add error handling when user enters empty title and/or empty description
+Note that the backend server is on `localhost:8080` and the frontend dev server is on `localhost:3000`
+
+## Things to do for this project
+
+- [ ] Add user authentication
