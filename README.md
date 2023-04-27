@@ -19,7 +19,6 @@ to build the images and start the frontend and backend containers for developmen
 Stop the containers with:
 
 ```bash
-# Use the -v flag if you wish to remove all the volumes containing node modules and static assets
 docker compose -f docker-compose.dev.yml stop
 ```
 
