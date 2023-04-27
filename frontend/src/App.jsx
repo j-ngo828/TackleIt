@@ -1,10 +1,14 @@
-import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Container from 'react-bootstrap/Container';
+import Stack from 'react-bootstrap/Stack';
+import Button from 'react-bootstrap/Button';
+import styles from './App.module.scss';
 
 function App() {
   return (
-    <>
-      <div>Hello world</div>
-    </>
+    <Stack className={styles.todoItems} gap={3}>
+      <div>First item <Button variant="primary">COMPLETE</Button></div>
+    </Stack>
   );
 }
 

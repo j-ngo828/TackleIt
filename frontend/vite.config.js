@@ -10,8 +10,9 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      // eslint-disable-next-line no-undef
+      // eslint-disable no-undef
       '@': path.resolve(__dirname, './src'),
+      //eslint-enable no-undef
     },
   },
   plugins: [react()],
