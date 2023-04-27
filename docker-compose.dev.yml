@@ -1,0 +1,33 @@
+# Docker compose configuration for backend express node.js here
+
+
+services:
+  backend:
+    container_name: TackleIt-Backend
+    build:
+      context: ./backend/
+      dockerfile: dev.Dockerfile
+    ports:
+      - 8080:8080
+    volumes:
+      - ./backend:/app/backend
+      - backend_node_modules:/app/backend/node_modules
+      - staticfiles:/app/backend/static
+      - mediafiles:/app/backend/mediafiles
+
+  frontend:
+    container_name: TackleIt-Frontend
+    build:
+      context: ./frontend/
+      dockerfile: dev.Dockerfile
+    ports:
+      - 3000:3000
+    volumes:
+      - ./frontend:/app/frontend
+      - frontend_node_modules:/app/frontend/node_modules
+
+volumes:
+  backend_node_modules:
+  frontend_node_modules:
+  staticfiles:
+  mediafiles:
