@@ -34,3 +34,4 @@ Note that the backend server is on `localhost:8080` and the frontend dev server 
 ## Things to do for this project
 
 - [ ] Add user authentication
+- [ ] Handle deployment with Fly.io or AWS
