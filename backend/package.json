@@ -1,27 +1,33 @@
 {
-  "name": "backend",
+  "name": "tackleit-api",
   "version": "1.0.0",
-  "private": true,
-  "description": "TackleIt API",
-  "main": "src/index.js",
+  "description": "Todo items API for Tackle It app",
+  "main": "index.js",
   "scripts": {
-    "start": "node src/index.js",
-    "dev": "nodemon src/index.js",
+    "tsc": "tsc",
+    "dev": "tsnd --respawn -r tsconfig-paths/register index.ts",
+    "lint": "eslint --ext .ts .",
+    "format": "prettier --write .",
+    "start": "node build/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
+  "author": "Jack",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
     "express": "^4.18.2",
-    "morgan": "^1.10.0",
-    "nodemon": "^2.0.22"
+    "mongoose": "^7.1.0"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.13",
+    "@types/express": "^4.17.17",
+    "@typescript-eslint/eslint-plugin": "^5.59.2",
+    "@typescript-eslint/parser": "^5.59.2",
     "eslint": "^8.39.0",
-    "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-config-prettier": "^8.8.0",
-    "eslint-plugin-import": "^2.27.5",
-    "prettier": "2.8.8"
+    "prettier": "2.8.8",
+    "ts-node-dev": "^2.0.0",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.0.4"
   }
 }
