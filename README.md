@@ -47,3 +47,5 @@ Note that the backend server is at http://localhost:8080 and the frontend dev se
 
 - [ ] Add user authentication
 - [ ] Handle deployment with Fly.io or AWS
+- [ ] Set up CI pipeline
+- [ ] Set up CD pipeline
