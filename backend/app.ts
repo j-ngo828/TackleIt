@@ -5,6 +5,7 @@ import mongoose from 'mongoose';
 import todosRouter from '@/controllers/todos';
 import { MONGODB_URI } from '@/utils/config';
 import logger from '@/utils/logger';
+import { developmentLogger, errorHandler, unknownEndpoint } from '@/utils/middleware';
 
 const app = express();
 
@@ -22,6 +23,11 @@ mongoose
 app.use(cors());
 app.use(express.json());
 
+app.use(developmentLogger());
+
 app.use('/api/todos', todosRouter);
+
+app.use(unknownEndpoint);
+app.use(errorHandler);
 
 export default app;

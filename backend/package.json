@@ -2,13 +2,14 @@
   "name": "tackleit-api",
   "version": "1.0.0",
   "description": "Todo items API for Tackle It app",
-  "main": "index.js",
+  "main": "build/index.js",
   "scripts": {
-    "tsc": "tsc",
+    "clean:backend": "rm -rf build",
+    "tsc": "npm run clean:backend && tsc && tsc-alias",
     "dev": "tsnd --respawn -r tsconfig-paths/register index.ts",
     "lint": "eslint --ext .ts .",
     "format": "prettier --write .",
-    "start": "node build/index.js",
+    "start": "node .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Jack",
@@ -17,16 +18,19 @@
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
-    "mongoose": "^7.1.0"
+    "mongoose": "^7.1.0",
+    "morgan": "^1.10.0"
   },
   "devDependencies": {
     "@types/cors": "^2.8.13",
     "@types/express": "^4.17.17",
+    "@types/morgan": "^1.9.4",
     "@typescript-eslint/eslint-plugin": "^5.59.2",
     "@typescript-eslint/parser": "^5.59.2",
     "eslint": "^8.39.0",
     "prettier": "2.8.8",
     "ts-node-dev": "^2.0.0",
+    "tsc-alias": "^1.8.6",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.0.4"
   }

@@ -12,10 +12,6 @@ services:
     volumes:
       - ./backend:/app/backend
       - backend_node_modules:/app/backend/node_modules
-      - staticfiles:/app/backend/static
-      - mediafiles:/app/backend/mediafiles
 
 volumes:
   backend_node_modules:
-  staticfiles:
-  mediafiles:

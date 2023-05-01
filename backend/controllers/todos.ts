@@ -3,9 +3,27 @@ import { RequestHandler, Router } from 'express';
 
 const todosRouter = Router();
 
-todosRouter.get('/', (async (_request, response) => {
+todosRouter.get('/info', (async (_request, response) => {
   const todosCount = await Todo.count({});
   response.send(`<p>Tackle It currently have ${todosCount} todo items</p>`);
+}) as RequestHandler);
+
+todosRouter.get('/', (async (_request, response, next) => {
+  try {
+    const todos = await Todo.find({});
+    response.json(todos);
+  } catch (error) {
+    next(error);
+  }
+}) as RequestHandler);
+
+todosRouter.get('/:id', (async (request, response, next) => {
+  try {
+    const todos = await Todo.findById(request.params.id);
+    response.json(todos);
+  } catch (error) {
+    next(error);
+  }
 }) as RequestHandler);
 
 export default todosRouter;
