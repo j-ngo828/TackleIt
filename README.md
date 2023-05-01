@@ -41,8 +41,6 @@ npm run dev
 
 to access the application at http://localhost:5173
 
-Note that the backend server is at http://localhost:8080 and the frontend dev server is on http://localhost:5173
-
 ## Things to do for this project
 
 - [ ] Add user authentication
