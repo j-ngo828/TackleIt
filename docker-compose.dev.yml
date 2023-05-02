@@ -3,10 +3,10 @@
 
 services:
   backend:
-    container_name: TackleIt-Backend
+    container_name: server
     build:
       context: ./backend/
-      dockerfile: dev.Dockerfile
+      target: dev
     ports:
       - 8080:8080
     volumes:
