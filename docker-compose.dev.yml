@@ -16,11 +16,9 @@ services:
     container_name: testdb
     image: mongo
     restart: always
+    env_file: ./backend/.env
     ports:
       - 27017:27017
-    environment:
-      - "MONGO_INITDB_ROOT_USERNAME=root"
-      - "MONGO_INITDB_ROOT_PASSWORD=test"
     volumes:
       - test_data:/data/db
 volumes:
