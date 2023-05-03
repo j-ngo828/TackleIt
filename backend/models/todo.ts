@@ -1,6 +1,13 @@
 import mongoose from 'mongoose';
 
-const todoSchema = new mongoose.Schema({
+export interface ITodo {
+  title: string;
+  description: string;
+  isCompleted: boolean;
+  priority: 'high' | 'medium' | 'low';
+}
+
+const todoSchema = new mongoose.Schema<ITodo>({
   title: String,
   description: String,
   isCompleted: Boolean,
