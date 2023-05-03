@@ -18,6 +18,20 @@ const todoSchema = new mongoose.Schema<ITodo>({
   },
 });
 
+todoSchema.set('toJSON', {
+  transform: (_doc, ret) => {
+    /* eslint-disable */
+    const returnObject = {
+      ...ret,
+      id: ret._id.toString(),
+    };
+    delete returnObject._id;
+    delete returnObject.__v;
+    return returnObject;
+    /* eslint-enable */
+  },
+});
+
 const Todo = mongoose.model('Todo', todoSchema);
 
 export default Todo;

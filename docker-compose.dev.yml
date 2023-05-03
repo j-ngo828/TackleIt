@@ -12,6 +12,17 @@ services:
     volumes:
       - ./backend:/app/backend
       - backend_node_modules:/app/backend/node_modules
-
+  testdb:
+    container_name: testdb
+    image: mongo
+    restart: always
+    ports:
+      - 27017:27017
+    environment:
+      - "MONGO_INITDB_ROOT_USERNAME=root"
+      - "MONGO_INITDB_ROOT_PASSWORD=test"
+    volumes:
+      - test_data:/data/db
 volumes:
   backend_node_modules:
+  test_data:

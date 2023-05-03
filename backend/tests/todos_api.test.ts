@@ -42,7 +42,13 @@ describe('viewing a specific todo', () => {
       .get(`/api/todos/${todoToView.id}`)
       .expect(200)
       .expect('Content-Type', /application\/json/);
-    expect(result.body).toEqual(todoToView);
+    expect(result.body).toEqual({
+      title: todoToView.title,
+      description: todoToView.description,
+      isCompleted: todoToView.isCompleted,
+      priority: todoToView.priority,
+      id: todoToView.id as string,
+    });
   });
 });
 
