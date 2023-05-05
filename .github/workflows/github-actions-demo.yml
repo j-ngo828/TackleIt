@@ -15,13 +15,8 @@ jobs:
       - name: List files in the repository
         run: |
           ls ${{ github.workspace }}
-      - name: Echo secrests
-        run: |
-          echo $TEST_ENV_FILE >> backend/.env
-          cat backend/.env
-        shell: bash
-        env:
-          TEST_ENV_FILE: ${{ secrets.ENV_FILE }}
+      - name: Create .env file
+        run: echo "Have to create a separate secret for each I think ;("
       - name: Build Docker images
         run: docker compose up -d --build
       - name: Run backend tests
