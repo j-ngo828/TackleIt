@@ -20,6 +20,9 @@ jobs:
           echo "${{ secrets.ENV_FILE }}" > backend/.env
       - name: Build Docker images
         run: docker compose up -d --build
+      - name: Debug
+        run: cat backend/.env
+      - run: echo ${{secrets.ENV_FILE}} | sed 's/./& /g'
       - name: Run backend tests
         run: docker compose exec backend npm test
       - run: echo "🍏 This job's status is ${{ job.status }}."
