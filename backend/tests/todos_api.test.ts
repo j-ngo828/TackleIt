@@ -56,4 +56,31 @@ describe('creating a new todo', () => {
   });
 });
 
+describe('updating a todo', () => {
+  test('succeeds with status code 200 and correct body', async () => {
+    const payload = {
+      title: 'TypeScript saves me',
+    };
+    const todoToUpdate = (await getAllTodos())[0];
+
+    const result = await api
+      .put(`/api/todos/${todoToUpdate.id}`)
+      .send(payload)
+      .expect(200)
+      .expect('Content-Type', /application\/json/);
+
+    expect(result.body).toMatchObject(payload);
+  });
+});
+
+describe('deleting a todo', () => {
+  test('succeeds with status code 204 and no body', async () => {
+    const todoToRemove = (await getAllTodos())[0];
+
+    const result = await api.delete(`/api/todos/${todoToRemove.id}`).expect(204);
+
+    expect(result.body).toEqual({});
+  });
+});
+
 afterAll(async () => mongoose.connection.close());

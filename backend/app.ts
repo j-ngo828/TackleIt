@@ -22,7 +22,7 @@ mongoose
 
 app.use(cors());
 app.use(express.json());
-app.use(developmentLogger());
+process.env.NODE_ENV === 'development' && app.use(developmentLogger());
 
 app.use('/api/todos', todosRouter);
 

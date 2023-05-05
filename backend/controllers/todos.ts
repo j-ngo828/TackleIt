@@ -41,4 +41,28 @@ todosRouter.post('/', (async (request, response, next) => {
   }
 }) as RequestHandler);
 
+todosRouter.put('/:id', (async (request, response, next) => {
+  try {
+    const updatedNote = await Todo.findByIdAndUpdate(
+      request.params.id,
+      request.body as TodoPayload,
+      {
+        new: true,
+      }
+    );
+    response.json(updatedNote);
+  } catch (error) {
+    next(error);
+  }
+}) as RequestHandler);
+
+todosRouter.delete('/:id', (async (request, response, next) => {
+  try {
+    await Todo.findByIdAndRemove(request.params.id);
+    response.status(204).end();
+  } catch (error) {
+    next(error);
+  }
+}) as RequestHandler);
+
 export default todosRouter;
