@@ -15,11 +15,13 @@ jobs:
       - name: List files in the repository
         run: |
           ls ${{ github.workspace }}
-      - name: 'Create env file'
+      - name: Echo secrests
         run: |
-          echo "Hello=world" > backend/.env && echo "${{ secrets.ENV_FILE }}" >> backend/.env
-      - name: Debug
-        run: cat backend/.env
+          echo $TEST_ENV_FILE >> backend/.env
+          cat backend/.env
+        shell: bash
+        env:
+          TEST_ENV_FILE: ${{ secrets.ENV_FILE }}
       - name: Build Docker images
         run: docker compose up -d --build
       - name: Run backend tests
