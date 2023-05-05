@@ -1,6 +1,3 @@
-# Docker compose configuration for backend express node.js here
-
-
 services:
   backend:
     container_name: server
@@ -9,6 +6,7 @@ services:
       target: dev
     ports:
       - 8080:8080
+      - 9229:9229
     volumes:
       - ./backend:/app/backend
       - backend_node_modules:/app/backend/node_modules

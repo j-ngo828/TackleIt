@@ -1,14 +1,15 @@
-import Todo, { ITodo } from '@/models/todo';
+import { TodoPayload } from '@/interfaces/todo';
+import Todo from '@/models/todo';
 
-const getDefaultTodoData = (): ITodo => ({
+const getDefaultTodoData = () => ({
   title: 'Python is joy',
   description: 'The language is very readable and concise',
   isCompleted: false,
   priority: 'high',
 });
 
-const createTodo = async (payload = {}) => {
-  const data: ITodo = {
+const createTodo = async (payload: TodoPayload = {}) => {
+  const data = {
     ...getDefaultTodoData(),
     ...payload,
   };
@@ -19,7 +20,13 @@ const createTodo = async (payload = {}) => {
 
 const getAllTodos = async () => {
   const allTodos = await Todo.find({});
-  return allTodos;
+  return allTodos.map((todo) => todo.toJSON());
 };
 
-export { createTodo, getAllTodos };
+const initializesDb = async () => {
+  await Todo.deleteMany({});
+  await createTodo();
+  await createTodo({ title: 'Ruby is so concise and beautiful' });
+};
+
+export { createTodo, getAllTodos, initializesDb };

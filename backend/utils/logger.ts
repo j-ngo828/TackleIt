@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-explicit-any */
 
 const info = (...params: any[]) => {
   if (process.env.NODE_ENV === 'test') {
@@ -20,5 +19,4 @@ export default {
   error,
 };
 
-/* eslint-enable @typescript-eslint/no-unsafe-argument */
-/* eslint-enable @typescript-eslint/no-explicit-any */
+/* eslint-enable */

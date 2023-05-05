@@ -22,7 +22,6 @@ mongoose
 
 app.use(cors());
 app.use(express.json());
-
 app.use(developmentLogger());
 
 app.use('/api/todos', todosRouter);

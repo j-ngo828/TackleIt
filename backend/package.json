@@ -4,13 +4,14 @@
   "description": "Todo items API for Tackle It app",
   "main": "build/index.js",
   "scripts": {
-    "clean:backend": "rm -rf build",
-    "tsc": "npm run clean:backend && tsc && tsc-alias",
+    "clean": "rm -rf build",
+    "build": "npm run clean && tsc && tsc-alias",
     "dev": "cross-env NODE_ENV=development tsnd --respawn -r tsconfig-paths/register index.ts",
     "lint": "eslint --ext .ts .",
     "format": "prettier --write .",
     "start": "cross-env NODE_ENV=production node .",
-    "test": "cross-env NODE_ENV=test jest --verbose --runInBand"
+    "test": "cross-env NODE_ENV=test jest --verbose --runInBand",
+    "test:debug": "cross-env NODE_ENV=test node --inspect-brk=0.0.0.0 node_modules/.bin/jest --testTimeout=100000000 --runInBand"
   },
   "author": "Jack",
   "license": "ISC",

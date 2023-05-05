@@ -14,8 +14,7 @@ const developmentLogger = () => {
     return Object.keys(body).length > 0 ? JSON.stringify(body) : 'null';
   });
 
-  /* eslint-enable @typescript-eslint/no-unsafe-argument */
-  /* eslint-enable @typescript-eslint/no-unsafe-assignment */
+  /* eslint-enable */
 
   return morgan(':method :url :status :res[content-length] - :response-time ms :body');
 };

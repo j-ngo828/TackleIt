@@ -1,11 +1,5 @@
+import { ITodo } from '@/interfaces/todo';
 import mongoose from 'mongoose';
-
-export interface ITodo {
-  title: string;
-  description: string;
-  isCompleted: boolean;
-  priority: 'high' | 'medium' | 'low';
-}
 
 const todoSchema = new mongoose.Schema<ITodo>({
   title: String,
@@ -20,7 +14,7 @@ const todoSchema = new mongoose.Schema<ITodo>({
 
 todoSchema.set('toJSON', {
   transform: (_doc, ret) => {
-    /* eslint-disable */
+    /* eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-return */
     const returnObject = {
       ...ret,
       id: ret._id.toString(),

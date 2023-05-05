@@ -8,6 +8,7 @@
     "noUnusedParameters": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
+    "sourceMap": true,
     "esModuleInterop": true,
     "paths": {
       "@/*": ["./*"]

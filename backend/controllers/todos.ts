@@ -1,3 +1,4 @@
+import { TodoPayload } from '@/interfaces/todo';
 import Todo from '@/models/todo';
 import { RequestHandler, Router } from 'express';
 
@@ -21,6 +22,20 @@ todosRouter.get('/:id', (async (request, response, next) => {
   try {
     const todos = await Todo.findById(request.params.id);
     response.json(todos);
+  } catch (error) {
+    next(error);
+  }
+}) as RequestHandler);
+
+todosRouter.post('/', (async (request, response, next) => {
+  try {
+    const payload = {
+      ...(request.body as TodoPayload),
+    };
+
+    const newTodo = new Todo(payload);
+    const result = await newTodo.save();
+    response.status(201).json(result);
   } catch (error) {
     next(error);
   }

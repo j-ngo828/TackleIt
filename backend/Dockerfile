@@ -1,3 +1,4 @@
+# syntax=docker/dockerfile:1
 ## Stage 1 (production base)
 
 FROM node:18.16.0-alpine as base
