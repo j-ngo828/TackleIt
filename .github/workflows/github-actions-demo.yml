@@ -17,7 +17,7 @@ jobs:
           ls ${{ github.workspace }}
       - name: 'Create env file'
         run: |
-          echo "${{ secrets.ENV_FILE }}"
+          echo "${{ secrets.ENV_FILE }}" > backend/.env
       - name: Build Docker images
         run: docker compose up -d --build
       - name: Run backend tests
