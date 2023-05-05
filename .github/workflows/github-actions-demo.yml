@@ -20,7 +20,6 @@ jobs:
           echo "NO SEE\n" > backend/.env && echo "${{ secrets.ENV_FILE }}" >> backend/.env
       - name: Debug
         run: cat backend/.env
-      - run: echo ${{secrets.ENV_FILE}} | sed 's/./& /g'
       - name: Build Docker images
         run: docker compose up -d --build
       - name: Run backend tests
