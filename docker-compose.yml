@@ -1,0 +1,24 @@
+services:
+  backend:
+    container_name: server
+    build:
+      context: ./backend/
+      target: dev
+    ports:
+      - 8080:8080
+      - 9229:9229
+    volumes:
+      - ./backend:/app/backend
+      - backend_node_modules:/app/backend/node_modules
+  testdb:
+    container_name: testdb
+    image: mongo
+    restart: always
+    env_file: ./backend/.env
+    ports:
+      - 27017:27017
+    volumes:
+      - test_data:/data/db
+volumes:
+  backend_node_modules:
+  test_data:
