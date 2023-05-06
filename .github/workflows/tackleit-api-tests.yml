@@ -2,7 +2,7 @@ name: TackleIt API Tests
 run-name: Run backend tests 🚀
 on: [push]
 jobs:
-  Explore-GitHub-Actions:
+  tackleit-api-run-test:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
