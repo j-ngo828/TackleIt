@@ -1,0 +1,21 @@
+name: TackleIt API Tests
+run-name: Run backend tests 🚀
+on: [push]
+jobs:
+  tackleit-api-run-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+      - name: Create .env file
+        run: |
+          touch backend/.env
+          echo "MONGODB_URI=${{ secrets.MONGODB_URI }}" >> backend/.env
+          echo "TEST_MONGODB_URI=${{ secrets.TEST_MONGODB_URI }}" >> backend/.env
+          echo "MONGO_INITDB_ROOT_USERNAME=${{ secrets.MONGO_INITDB_ROOT_USERNAME }}" >> backend/.env
+          echo "MONGO_INITDB_ROOT_PASSWORD=${{ secrets.MONGO_INITDB_ROOT_PASSWORD }}" >> backend/.env
+      - name: Build Docker images
+        run: docker compose up -d --build
+      - name: Run backend tests
+        run: docker compose exec backend npm test
+      - run: echo "🍏 This job's status is ${{ job.status }}."
