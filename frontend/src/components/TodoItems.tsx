@@ -47,7 +47,6 @@ function TodoItem({ todoItem, handleTodoIsCompleteChange, handleDeleteTodo }: To
         >
           <Stack direction="horizontal" gap={1}>
             <TrashIcon />
-            Delete todo
           </Stack>
         </Button>
       </Col>
