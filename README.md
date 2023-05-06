@@ -15,7 +15,7 @@ In addition, users can optionally assign priority to each task and filter todo i
 Please ensure you have Docker installed. Then run:
 
 ```bash
-docker compose -f docker-compose.dev.yml up -d --build
+docker compose up -d --build
 ```
 
 to build the backend image and start the backend containers for development. Then navigate to http://localhost:8080 to access the application.
@@ -23,14 +23,14 @@ to build the backend image and start the backend containers for development. The
 Stop the containers with:
 
 ```bash
-docker compose -f docker-compose.dev.yml stop
+docker compose stop
 ```
 
 Remove the containers with:
 
 ```bash
 # Use the -v flag if you wish to remove all the volumes containing node modules and static assets
-docker compose -f docker-compose.dev.yml down
+docker compose down
 ```
 
 ### Frontend Vite server
