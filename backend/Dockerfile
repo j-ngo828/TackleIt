@@ -9,7 +9,7 @@ WORKDIR /app/backend
 
 COPY package*.json ./
 
-RUN npm install --only=production\
+RUN npm install --production\
   && npm cache clean --force
 
 ## Stage 2 (development)
@@ -20,7 +20,7 @@ ENV NODE_ENV=development
 
 WORKDIR /app/backend
 
-RUN npm install --only=development\
+RUN npm i -D\
   && npm cache clean --force
 
 CMD [ "npm", "run", "dev" ]
