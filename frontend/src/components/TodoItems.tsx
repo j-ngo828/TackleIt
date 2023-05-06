@@ -17,8 +17,12 @@ interface TodoItemProps {
 
 function TodoItem({ todoItem, handleTodoIsCompleteChange }: TodoItemProps) {
   return (
-    <Row className={styles.item} gap={2} direction="horizontal">
-      <Col md={1}>
+    <Row
+      className={`${todoItem.isCompleted && styles.completedItem} ${styles.item}`}
+      gap={2}
+      direction="horizontal"
+    >
+      <Col xs={1}>
         <Form.Check
           checked={todoItem.isCompleted}
           onChange={() => handleTodoIsCompleteChange(todoItem.id)}

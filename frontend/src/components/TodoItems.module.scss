@@ -4,4 +4,8 @@ p {
 
 .items {
   margin-top: 16px;
+
+  .completedItem {
+    text-decoration: line-through;
+  }
 }

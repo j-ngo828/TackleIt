@@ -13,10 +13,20 @@ function App() {
   useEffect(() => {
     const fetchTodoItems = async () => {
       const response = await todoService.getAllTodos();
-      setTodoItems(response.data);
+      const todoToShow = response.data.filter((todoItem) => {
+        switch (todoFilter) {
+          case TODO_TAB_FILTER.SHOW_COMPLETED.eventKey:
+            return todoItem.isCompleted;
+          case TODO_TAB_FILTER.SHOW_INCOMPLETE.eventKey:
+            return !todoItem.isCompleted;
+          default:
+            return true;
+        }
+      });
+      setTodoItems(todoToShow);
     };
     fetchTodoItems();
-  }, []);
+  }, [todoFilter, todoItems]);
 
   const handleTodoIsCompleteChange = async (id: string) => {
     const todoItem = todoItems.find((todoItem) => todoItem.id === id);
@@ -28,6 +38,7 @@ function App() {
     const response = await todoService.updateTodo(id, payload);
     setTodoItems(todoItems.map((todoItem) => (todoItem.id === id ? response.data : todoItem)));
   };
+
   return (
     <>
       <Header />
