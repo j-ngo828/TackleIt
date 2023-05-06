@@ -9,11 +9,7 @@ jobs:
         uses: actions/checkout@v3
       - name: Create .env file
         run: |
-          touch backend/.env
-          echo "MONGODB_URI=${{ secrets.MONGODB_URI }}" >> backend/.env
-          echo "TEST_MONGODB_URI=${{ secrets.TEST_MONGODB_URI }}" >> backend/.env
-          echo "MONGO_INITDB_ROOT_USERNAME=${{ secrets.MONGO_INITDB_ROOT_USERNAME }}" >> backend/.env
-          echo "MONGO_INITDB_ROOT_PASSWORD=${{ secrets.MONGO_INITDB_ROOT_PASSWORD }}" >> backend/.env
+          echo "${{ secrets.ENV_FILE }}" > backend/.env
       - name: Build Docker images
         run: docker compose up -d --build
       - name: Run backend tests
