@@ -30,11 +30,14 @@ const todoService = (() => {
     return updatedTodo;
   };
 
+  const deleteTodo = async (id: string) => await axios.delete(`${todosApiRoute}/${id}`);
+
   return {
     getAllTodos,
     getOneTodo,
     createTodo,
     updateTodo,
+    deleteTodo,
   };
 })();
 

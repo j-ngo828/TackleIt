@@ -1,24 +1,29 @@
 import styles from '@/components/TodoItems.module.scss';
 import { ITodoItem } from '@/utils/interfaces';
+import { ReactComponent as TrashIcon } from '@public/trash.svg';
+import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
+import Stack from 'react-bootstrap/Stack';
 
-interface TodoItemsProps {
+interface Base {
+  handleTodoIsCompleteChange: (id: string) => void;
+  handleDeleteTodo: (id: string) => void;
+}
+interface TodoItemsProps extends Base {
   todoItems: ITodoItem[];
-  handleTodoIsCompleteChange: (id: string) => void;
 }
 
-interface TodoItemProps {
+interface TodoItemProps extends Base {
   todoItem: ITodoItem;
-  handleTodoIsCompleteChange: (id: string) => void;
 }
 
-function TodoItem({ todoItem, handleTodoIsCompleteChange }: TodoItemProps) {
+function TodoItem({ todoItem, handleTodoIsCompleteChange, handleDeleteTodo }: TodoItemProps) {
   return (
     <Row
-      className={`${todoItem.isCompleted && styles.completedItem} ${styles.item}`}
+      className={`${todoItem.isCompleted ? styles.completedItem : ''} mb-2`}
       gap={2}
       direction="horizontal"
     >
@@ -31,11 +36,26 @@ function TodoItem({ todoItem, handleTodoIsCompleteChange }: TodoItemProps) {
       <Col>
         <p>{todoItem.title}</p>
       </Col>
+      <Col>
+        <Button
+          onClick={() => {
+            if (confirm('Are you sure you want to delete this todo?')) {
+              handleDeleteTodo(todoItem.id);
+            }
+          }}
+          variant="outline-danger"
+        >
+          <Stack direction="horizontal" gap={1}>
+            <TrashIcon />
+            Delete todo
+          </Stack>
+        </Button>
+      </Col>
     </Row>
   );
 }
 
-function TodoItems({ todoItems, handleTodoIsCompleteChange }: TodoItemsProps) {
+function TodoItems({ todoItems, handleTodoIsCompleteChange, handleDeleteTodo }: TodoItemsProps) {
   return (
     <Container className={styles.items}>
       {todoItems.map((todoItem) => {
@@ -44,6 +64,7 @@ function TodoItems({ todoItems, handleTodoIsCompleteChange }: TodoItemsProps) {
             key={todoItem.id}
             todoItem={todoItem}
             handleTodoIsCompleteChange={handleTodoIsCompleteChange}
+            handleDeleteTodo={handleDeleteTodo}
           />
         );
       })}

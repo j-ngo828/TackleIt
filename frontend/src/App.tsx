@@ -39,11 +39,20 @@ function App() {
     setTodoItems(todoItems.map((todoItem) => (todoItem.id === id ? response.data : todoItem)));
   };
 
+  const handleDeleteTodo = async (id: string) => {
+    await todoService.deleteTodo(id);
+    setTodoItems(todoItems.filter((todoItem) => todoItem.id !== id));
+  };
+
   return (
     <>
       <Header />
       <TodoControl handleTodoFilterChange={(filter) => setTodoFilter(filter)} />
-      <TodoItems todoItems={todoItems} handleTodoIsCompleteChange={handleTodoIsCompleteChange} />
+      <TodoItems
+        todoItems={todoItems}
+        handleTodoIsCompleteChange={handleTodoIsCompleteChange}
+        handleDeleteTodo={handleDeleteTodo}
+      />
     </>
   );
 }
