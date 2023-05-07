@@ -14,4 +14,3 @@ jobs:
         run: docker compose up -d --build
       - name: Run backend tests
         run: docker compose exec backend npm test
-      - run: echo "🍏 This job's status is ${{ job.status }}."
