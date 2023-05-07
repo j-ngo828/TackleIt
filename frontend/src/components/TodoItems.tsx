@@ -1,5 +1,6 @@
 import { ReactComponent as TrashIcon } from '@/assets/trash.svg';
 import styles from '@/components/TodoItems.module.scss';
+import { TODO_TAB_FILTER } from '@/utils/constants';
 import { ITodoItem } from '@/utils/interfaces';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
@@ -14,6 +15,7 @@ interface Base {
 }
 interface TodoItemsProps extends Base {
   todoItems: ITodoItem[];
+  todoFilter: string;
 }
 
 interface TodoItemProps extends Base {
@@ -54,19 +56,35 @@ function TodoItem({ todoItem, handleTodoIsCompleteChange, handleDeleteTodo }: To
   );
 }
 
-function TodoItems({ todoItems, handleTodoIsCompleteChange, handleDeleteTodo }: TodoItemsProps) {
+function TodoItems({
+  todoItems,
+  handleTodoIsCompleteChange,
+  handleDeleteTodo,
+  todoFilter,
+}: TodoItemsProps) {
   return (
     <Container className={styles.items}>
-      {todoItems.map((todoItem) => {
-        return (
-          <TodoItem
-            key={todoItem.id}
-            todoItem={todoItem}
-            handleTodoIsCompleteChange={handleTodoIsCompleteChange}
-            handleDeleteTodo={handleDeleteTodo}
-          />
-        );
-      })}
+      {todoItems
+        .filter((todoItem) => {
+          switch (todoFilter) {
+            case TODO_TAB_FILTER.SHOW_COMPLETED.eventKey:
+              return todoItem.isCompleted;
+            case TODO_TAB_FILTER.SHOW_INCOMPLETE.eventKey:
+              return !todoItem.isCompleted;
+            default:
+              return true;
+          }
+        })
+        .map((todoItem) => {
+          return (
+            <TodoItem
+              key={todoItem.id}
+              todoItem={todoItem}
+              handleTodoIsCompleteChange={handleTodoIsCompleteChange}
+              handleDeleteTodo={handleDeleteTodo}
+            />
+          );
+        })}
     </Container>
   );
 }

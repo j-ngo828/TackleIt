@@ -5,7 +5,10 @@
   "main": "build/index.js",
   "scripts": {
     "clean": "rm -rf build",
-    "build": "npm run clean && tsc && tsc-alias",
+    "build:backend": "npm run clean && tsc && tsc-alias",
+    "build:frontend": "cd ../frontend && npm run build && cp -r dist ../backend/build",
+    "build": "npm run build:backend && npm run build:frontend",
+    "staging": "npm run build && npm start",
     "dev": "cross-env NODE_ENV=development tsnd --respawn -r tsconfig-paths/register index.ts",
     "dev:debug": "cross-env NODE_ENV=development tsnd --preserve-symlinks --transpile-only --inspect=0.0.0.0:9229 --project tsconfig.json --respawn -r tsconfig-paths/register index.ts",
     "lint": "eslint --ext .ts .",

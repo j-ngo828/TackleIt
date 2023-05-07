@@ -15,20 +15,10 @@ function App() {
   useEffect(() => {
     const fetchTodoItems = async () => {
       const response = await todoService.getAllTodos();
-      const todoToShow = response.data.filter((todoItem) => {
-        switch (todoFilter) {
-          case TODO_TAB_FILTER.SHOW_COMPLETED.eventKey:
-            return todoItem.isCompleted;
-          case TODO_TAB_FILTER.SHOW_INCOMPLETE.eventKey:
-            return !todoItem.isCompleted;
-          default:
-            return true;
-        }
-      });
-      setTodoItems(todoToShow);
+      setTodoItems(response.data);
     };
     fetchTodoItems();
-  }, [todoFilter, todoItems]);
+  }, []);
 
   const handleTodoIsCompleteChange = async (id: string) => {
     const todoItem = todoItems.find((todoItem) => todoItem.id === id);
@@ -66,6 +56,7 @@ function App() {
       <TodoControl handleTodoFilterChange={(filter) => setTodoFilter(filter)} />
       <TodoItems
         todoItems={todoItems}
+        todoFilter={todoFilter}
         handleTodoIsCompleteChange={handleTodoIsCompleteChange}
         handleDeleteTodo={handleDeleteTodo}
       />
