@@ -37,10 +37,7 @@ function App() {
   };
 
   const handleSubmitTodo = async (payload: TodoPayload) => {
-    const response = await todoService.createTodo({
-      ...payload,
-      isCompleted: false,
-    });
+    const response = await todoService.createTodo(payload);
     setTodoItems([...todoItems, response.data]);
   };
 

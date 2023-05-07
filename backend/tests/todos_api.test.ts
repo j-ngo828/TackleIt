@@ -54,6 +54,30 @@ describe('creating a new todo', () => {
     expect(allTodos).toHaveLength(initialTodoCount + 1);
     expect(result.body).toMatchObject(payload);
   });
+
+  test('responds with 400 bad request if title is missing in payload', async () => {
+    const payload = {
+      description: 'The most iconic phrase known to programmers',
+      isCompleted: true,
+    };
+    await api.post('/api/todos').send(payload).expect(400);
+  });
+
+  test('successfully create with isCompleted default to false and priority default to medium', async () => {
+    const payload = {
+      title: 'Test Title',
+    };
+
+    const result = await api.post('/api/todos').send(payload).expect(201);
+
+    const allTodos = await getAllTodos();
+    const createdTodo = allTodos.find((todo) => todo.id === result.body.id);
+    expect(createdTodo).toBeDefined();
+    expect(createdTodo!.title).toBe(payload.title);
+    expect(createdTodo!.isCompleted).toBe(false);
+    expect(createdTodo!.priority).toBe('medium');
+    expect(createdTodo!.description).toBeUndefined();
+  });
 });
 
 describe('updating a todo', () => {

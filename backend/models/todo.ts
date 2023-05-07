@@ -2,7 +2,10 @@ import { ITodo } from '@/interfaces/todo';
 import mongoose from 'mongoose';
 
 const todoSchema = new mongoose.Schema<ITodo>({
-  title: String,
+  title: {
+    type: String,
+    required: true,
+  },
   description: String,
   isCompleted: Boolean,
   priority: {
