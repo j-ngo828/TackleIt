@@ -8,7 +8,7 @@ The app allows users to create and delete todo tasks, as well as the ability to 
 
 In addition, users can optionally assign priority to each task and filter todo items by priority.
 
-## Setup
+## Setup development environment
 
 ### Backend server
 
@@ -42,6 +42,35 @@ npm run dev
 ```
 
 to access the application at http://localhost:5173
+
+### VSCode Editor Setup
+
+- Download the recommended extensions (Prettier, ESLint, Path Intellisense)
+- Then add the following to `.vscode/settings.json`
+
+```json
+{
+
+  // Other settings...
+
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[scss]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": true
+  },
+  "eslint.workingDirectories": [
+    "./backend",
+    "./frontend"
+  ]
+}
+```
 
 ## Things to do for this project
 

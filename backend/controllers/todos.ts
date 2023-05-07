@@ -31,6 +31,7 @@ todosRouter.post('/', (async (request, response, next) => {
   try {
     const payload = {
       ...(request.body as TodoPayload),
+      isCompleted: false,
     };
 
     const newTodo = new Todo(payload);

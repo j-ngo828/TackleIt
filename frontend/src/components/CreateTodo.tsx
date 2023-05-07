@@ -1,23 +1,30 @@
 import styles from '@/components/CreateTodo.module.scss';
 import CreateTodoModal from '@/components/CreateTodoModal';
 import { TodoPayload } from '@/utils/interfaces';
+import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Stack from 'react-bootstrap/Stack';
 
 interface CreateTodoProps {
-  show: boolean;
-  handleShowModal: () => void;
-  handleHideModal: () => void;
   handleSubmit: (payload: TodoPayload) => void;
 }
 
-function CreateTodo({ show, handleShowModal, handleHideModal, handleSubmit }: CreateTodoProps) {
+function CreateTodo({ handleSubmit }: CreateTodoProps) {
+  const [showCreateTodoModal, setShowCreateTodoModal] = useState<boolean>(false);
   return (
     <Stack direction="horizontal" className={styles.container}>
-      <Button className={styles.button} variant="primary" onClick={handleShowModal}>
+      <Button
+        className={styles.button}
+        variant="primary"
+        onClick={() => setShowCreateTodoModal(true)}
+      >
         Create Todo
       </Button>
-      <CreateTodoModal handleSubmit={handleSubmit} show={show} onHide={handleHideModal} />
+      <CreateTodoModal
+        handleSubmit={handleSubmit}
+        show={showCreateTodoModal}
+        onHide={() => setShowCreateTodoModal(false)}
+      />
     </Stack>
   );
 }

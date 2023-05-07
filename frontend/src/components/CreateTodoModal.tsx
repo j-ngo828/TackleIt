@@ -1,4 +1,5 @@
 import { TodoPayload } from '@/utils/interfaces';
+import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
@@ -16,19 +17,32 @@ interface TodoFormData {
 }
 
 function CreateTodoModal({ show, onHide, handleSubmit, ...rest }: CreateTodoModalProps) {
+  const [validated, setValidated] = useState<boolean>(false);
+  const handleHideModal = () => {
+    onHide();
+    setValidated(false);
+  };
   return (
-    <Modal show={show} {...rest} centered size="lg">
+    <Modal show={show} onHide={handleHideModal} {...rest} centered size="lg">
       <Form
+        noValidate
+        validated={validated}
         onSubmit={(event) => {
           event.preventDefault();
-          const { titleInput, descriptionInput, priorityInput } =
-            event.target as typeof event.target & TodoFormData;
-          handleSubmit({
-            title: titleInput.value,
-            description: descriptionInput.value,
-            priority: priorityInput.value,
-          });
-          onHide();
+          const form = event.currentTarget;
+          if (!form.checkValidity()) {
+            event.stopPropagation();
+            setValidated(true);
+          } else {
+            const { titleInput, descriptionInput, priorityInput } =
+              event.target as typeof event.target & TodoFormData;
+            handleSubmit({
+              title: titleInput.value,
+              description: descriptionInput.value,
+              priority: priorityInput.value,
+            });
+            handleHideModal();
+          }
         }}
       >
         <Modal.Body>
@@ -38,7 +52,9 @@ function CreateTodoModal({ show, onHide, handleSubmit, ...rest }: CreateTodoModa
               name="titleInput"
               type="text"
               placeholder="Review CS 240 Lecture on priority queue"
+              required
             />
+            <Form.Control.Feedback type="invalid">Please provide a title.</Form.Control.Feedback>
           </Form.Group>
           <Form.Group className="mb-3" controlId="todo.descriptionInput">
             <Form.Label>Description</Form.Label>
@@ -78,7 +94,7 @@ function CreateTodoModal({ show, onHide, handleSubmit, ...rest }: CreateTodoModa
           <Button variant="primary" type="submit">
             Save
           </Button>
-          <Button variant="secondary" onClick={onHide}>
+          <Button variant="secondary" onClick={handleHideModal}>
             Close
           </Button>
         </Modal.Footer>

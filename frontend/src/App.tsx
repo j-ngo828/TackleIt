@@ -10,7 +10,6 @@ import { useEffect, useState } from 'react';
 function App() {
   const [todoFilter, setTodoFilter] = useState<string>(TODO_TAB_FILTER.SHOW_ALL.eventKey);
   const [todoItems, setTodoItems] = useState<ITodoItem[]>([]);
-  const [showCreateTodoModal, setShowCreateTodoModal] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchTodoItems = async () => {
@@ -37,22 +36,14 @@ function App() {
   };
 
   const handleSubmitTodo = async (payload: TodoPayload) => {
-    const response = await todoService.createTodo({
-      ...payload,
-      isCompleted: false,
-    });
+    const response = await todoService.createTodo(payload);
     setTodoItems([...todoItems, response.data]);
   };
 
   return (
     <>
       <Header />
-      <CreateTodo
-        show={showCreateTodoModal}
-        handleShowModal={() => setShowCreateTodoModal(true)}
-        handleHideModal={() => setShowCreateTodoModal(false)}
-        handleSubmit={handleSubmitTodo}
-      />
+      <CreateTodo handleSubmit={handleSubmitTodo} />
       <TodoControl handleTodoFilterChange={(filter) => setTodoFilter(filter)} />
       <TodoItems
         todoItems={todoItems}
