@@ -8,4 +8,9 @@ p {
   .completedItem {
     text-decoration: line-through;
   }
+
+  .checkboxColumn {
+    display: flex;
+    justify-content: end;
+  }
 }

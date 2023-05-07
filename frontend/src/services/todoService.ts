@@ -1,14 +1,8 @@
-import { ITodoItem } from '@/utils/interfaces';
+import { ITodoItem, TodoPayload } from '@/utils/interfaces';
 import axios from 'axios';
 
 const todoService = (() => {
   const todosApiRoute = '/api/todos';
-  interface TodoPayload {
-    title?: string;
-    description?: string;
-    isCompleted?: boolean;
-    priority?: 'high' | 'medium' | 'low';
-  }
 
   const getAllTodos = async () => {
     const allTodos = await axios.get<ITodoItem[]>(todosApiRoute);

@@ -1,6 +1,6 @@
+import { ReactComponent as TrashIcon } from '@/assets/trash.svg';
 import styles from '@/components/TodoItems.module.scss';
 import { ITodoItem } from '@/utils/interfaces';
-import { ReactComponent as TrashIcon } from '@public/trash.svg';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
@@ -27,7 +27,7 @@ function TodoItem({ todoItem, handleTodoIsCompleteChange, handleDeleteTodo }: To
       gap={2}
       direction="horizontal"
     >
-      <Col xs={1}>
+      <Col className={styles.checkboxColumn}>
         <Form.Check
           checked={todoItem.isCompleted}
           onChange={() => handleTodoIsCompleteChange(todoItem.id)}

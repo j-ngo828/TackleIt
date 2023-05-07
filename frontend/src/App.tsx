@@ -1,14 +1,16 @@
+import CreateTodo from '@/components/CreateTodo';
 import Header from '@/components/Header';
 import TodoControl from '@/components/TodoControl';
 import TodoItems from '@/components/TodoItems';
 import todoService from '@/services/todoService';
 import { TODO_TAB_FILTER } from '@/utils/constants';
-import { ITodoItem } from '@/utils/interfaces';
+import { ITodoItem, TodoPayload } from '@/utils/interfaces';
 import { useEffect, useState } from 'react';
 
 function App() {
   const [todoFilter, setTodoFilter] = useState<string>(TODO_TAB_FILTER.SHOW_ALL.eventKey);
   const [todoItems, setTodoItems] = useState<ITodoItem[]>([]);
+  const [showCreateTodoModal, setShowCreateTodoModal] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchTodoItems = async () => {
@@ -44,9 +46,23 @@ function App() {
     setTodoItems(todoItems.filter((todoItem) => todoItem.id !== id));
   };
 
+  const handleSubmitTodo = async (payload: TodoPayload) => {
+    const response = await todoService.createTodo({
+      ...payload,
+      isCompleted: false,
+    });
+    setTodoItems([...todoItems, response.data]);
+  };
+
   return (
     <>
       <Header />
+      <CreateTodo
+        show={showCreateTodoModal}
+        handleShowModal={() => setShowCreateTodoModal(true)}
+        handleHideModal={() => setShowCreateTodoModal(false)}
+        handleSubmit={handleSubmitTodo}
+      />
       <TodoControl handleTodoFilterChange={(filter) => setTodoFilter(filter)} />
       <TodoItems
         todoItems={todoItems}
