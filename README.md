@@ -65,6 +65,7 @@ to access the application at http://localhost:5173
   "editor.codeActionsOnSave": {
     "source.organizeImports": true
   },
+  "editor.formatOnSave": true,
   "eslint.workingDirectories": [
     "./backend",
     "./frontend"
