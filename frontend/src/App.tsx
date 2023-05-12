@@ -40,6 +40,14 @@ function App() {
     setTodoItems([...todoItems, response.data]);
   };
 
+  const handleUpdateTodo = async (payload: TodoPayload) => {
+    const response = await todoService.updateTodo(payload.id!, payload);
+    const updatedTodoItems = todoItems.map((todoItem) =>
+      todoItem.id === payload.id ? response.data : todoItem
+    );
+    setTodoItems(updatedTodoItems);
+  };
+
   return (
     <>
       <Header />
@@ -50,6 +58,7 @@ function App() {
         todoFilter={todoFilter}
         handleTodoIsCompleteChange={handleTodoIsCompleteChange}
         handleDeleteTodo={handleDeleteTodo}
+        handleUpdateTodo={handleUpdateTodo}
       />
     </>
   );

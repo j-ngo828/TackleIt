@@ -1,7 +1,9 @@
 import { ReactComponent as TrashIcon } from '@/assets/trash.svg';
 import styles from '@/components/TodoItems.module.scss';
-import { TODO_TAB_FILTER } from '@/utils/constants';
-import { ITodoItem } from '@/utils/interfaces';
+import TodoModal from '@/components/TodoModal';
+import { MODAL_MODE, TODO_TAB_FILTER } from '@/utils/constants';
+import { ITodoItem, TodoPayload } from '@/utils/interfaces';
+import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
@@ -12,6 +14,7 @@ import Stack from 'react-bootstrap/Stack';
 interface Base {
   handleTodoIsCompleteChange: (id: string) => void;
   handleDeleteTodo: (id: string) => void;
+  handleUpdateTodo: (payload: TodoPayload) => void;
 }
 interface TodoItemsProps extends Base {
   todoItems: ITodoItem[];
@@ -22,7 +25,13 @@ interface TodoItemProps extends Base {
   todoItem: ITodoItem;
 }
 
-function TodoItem({ todoItem, handleTodoIsCompleteChange, handleDeleteTodo }: TodoItemProps) {
+function TodoItem({
+  todoItem,
+  handleTodoIsCompleteChange,
+  handleDeleteTodo,
+  handleUpdateTodo,
+}: TodoItemProps) {
+  const [showTodoModal, setShowTodoModal] = useState<boolean>(false);
   return (
     <Row
       className={`${todoItem.isCompleted ? styles.completedItem : ''} mb-2`}
@@ -33,6 +42,17 @@ function TodoItem({ todoItem, handleTodoIsCompleteChange, handleDeleteTodo }: To
         <Form.Check
           checked={todoItem.isCompleted}
           onChange={() => handleTodoIsCompleteChange(todoItem.id)}
+        />
+      </Col>
+      <Col>
+        <Button variant="primary" onClick={() => setShowTodoModal(true)}>
+          View details
+        </Button>
+        <TodoModal
+          handleSubmit={handleUpdateTodo}
+          show={showTodoModal}
+          mode={MODAL_MODE.EDIT}
+          onHide={() => setShowTodoModal(false)}
         />
       </Col>
       <Col>
@@ -61,6 +81,7 @@ function TodoItems({
   handleTodoIsCompleteChange,
   handleDeleteTodo,
   todoFilter,
+  handleUpdateTodo,
 }: TodoItemsProps) {
   return (
     <Container className={styles.items}>
@@ -82,6 +103,7 @@ function TodoItems({
               todoItem={todoItem}
               handleTodoIsCompleteChange={handleTodoIsCompleteChange}
               handleDeleteTodo={handleDeleteTodo}
+              handleUpdateTodo={handleUpdateTodo}
             />
           );
         })}
