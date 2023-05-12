@@ -7,6 +7,7 @@ export interface ITodoItem {
 }
 
 export interface TodoPayload {
+  id?: string;
   title?: string;
   description?: string;
   isCompleted?: boolean;

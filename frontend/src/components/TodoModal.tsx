@@ -1,13 +1,21 @@
+import { MODAL_MODE } from '@/utils/constants';
 import { TodoPayload } from '@/utils/interfaces';
 import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 
-interface CreateTodoModalProps {
+const MODAL_TITLE = Object.freeze({
+  [MODAL_MODE.CREATE]: 'Create Todo',
+  [MODAL_MODE.EDIT]: 'Update Todo',
+});
+
+interface TodoModalProps {
   show: boolean;
+  mode: (typeof MODAL_MODE)[keyof typeof MODAL_MODE];
   onHide: () => void;
   handleSubmit: (payload: TodoPayload) => void;
+  existingTodo?: TodoPayload;
 }
 
 interface TodoFormData {
@@ -16,7 +24,7 @@ interface TodoFormData {
   priorityInput: { value: 'high' | 'medium' | 'low' };
 }
 
-function CreateTodoModal({ show, onHide, handleSubmit, ...rest }: CreateTodoModalProps) {
+function TodoModal({ show, mode, onHide, handleSubmit, existingTodo, ...rest }: TodoModalProps) {
   const [validated, setValidated] = useState<boolean>(false);
   const handleHideModal = () => {
     onHide();
@@ -40,11 +48,15 @@ function CreateTodoModal({ show, onHide, handleSubmit, ...rest }: CreateTodoModa
               title: titleInput.value,
               description: descriptionInput.value,
               priority: priorityInput.value,
+              id: existingTodo?.id,
             });
             handleHideModal();
           }
         }}
       >
+        <Modal.Header>
+          <Modal.Title>{MODAL_TITLE[mode]}</Modal.Title>
+        </Modal.Header>
         <Modal.Body>
           <Form.Group className="mb-3" controlId="todo.titleInput">
             <Form.Label>Title</Form.Label>
@@ -52,6 +64,7 @@ function CreateTodoModal({ show, onHide, handleSubmit, ...rest }: CreateTodoModa
               name="titleInput"
               type="text"
               placeholder="Review CS 240 Lecture on priority queue"
+              defaultValue={existingTodo?.title}
               required
             />
             <Form.Control.Feedback type="invalid">Please provide a title.</Form.Control.Feedback>
@@ -61,6 +74,7 @@ function CreateTodoModal({ show, onHide, handleSubmit, ...rest }: CreateTodoModa
             <Form.Control
               as="textarea"
               name="descriptionInput"
+              defaultValue={existingTodo?.description}
               placeholder="Go over the lecture slides, tutorials, and assignments. Do LeetCode practice problems with priority queue."
             />
           </Form.Group>
@@ -72,6 +86,7 @@ function CreateTodoModal({ show, onHide, handleSubmit, ...rest }: CreateTodoModa
               id="todo.priorityHighInput"
               type="radio"
               label="High"
+              defaultChecked={existingTodo?.priority === 'high'}
             />
             <Form.Check
               name="priorityInput"
@@ -79,7 +94,7 @@ function CreateTodoModal({ show, onHide, handleSubmit, ...rest }: CreateTodoModa
               id="todo.priorityMediumInput"
               type="radio"
               label="Medium"
-              defaultChecked
+              defaultChecked={existingTodo ? existingTodo.priority === 'medium' : true}
             />
             <Form.Check
               name="priorityInput"
@@ -87,6 +102,7 @@ function CreateTodoModal({ show, onHide, handleSubmit, ...rest }: CreateTodoModa
               id="todo.priorityLowInput"
               type="radio"
               label="Low"
+              defaultChecked={existingTodo?.priority === 'low'}
             />
           </Form.Group>
         </Modal.Body>
@@ -103,4 +119,4 @@ function CreateTodoModal({ show, onHide, handleSubmit, ...rest }: CreateTodoModa
   );
 }
 
-export default CreateTodoModal;
+export default TodoModal;
