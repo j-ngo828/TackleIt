@@ -4,8 +4,19 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 
-interface CreateTodoModalProps {
+export const MODAL_MODE = Object.freeze({
+  EDIT: 'edit',
+  CREATE: 'create',
+});
+
+const MODAL_TITLE = Object.freeze({
+  [MODAL_MODE.CREATE]: 'Create Todo',
+  [MODAL_MODE.EDIT]: 'Update Todo',
+});
+
+interface TodoModalProps {
   show: boolean;
+  mode: (typeof MODAL_MODE)[keyof typeof MODAL_MODE];
   onHide: () => void;
   handleSubmit: (payload: TodoPayload) => void;
 }
@@ -16,7 +27,7 @@ interface TodoFormData {
   priorityInput: { value: 'high' | 'medium' | 'low' };
 }
 
-function CreateTodoModal({ show, onHide, handleSubmit, ...rest }: CreateTodoModalProps) {
+function TodoModal({ show, mode, onHide, handleSubmit, ...rest }: TodoModalProps) {
   const [validated, setValidated] = useState<boolean>(false);
   const handleHideModal = () => {
     onHide();
@@ -45,6 +56,9 @@ function CreateTodoModal({ show, onHide, handleSubmit, ...rest }: CreateTodoModa
           }
         }}
       >
+        <Modal.Header>
+          <Modal.Title>{MODAL_TITLE[mode]}</Modal.Title>
+        </Modal.Header>
         <Modal.Body>
           <Form.Group className="mb-3" controlId="todo.titleInput">
             <Form.Label>Title</Form.Label>
@@ -103,4 +117,4 @@ function CreateTodoModal({ show, onHide, handleSubmit, ...rest }: CreateTodoModa
   );
 }
 
-export default CreateTodoModal;
+export default TodoModal;

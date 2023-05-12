@@ -1,5 +1,5 @@
 import styles from '@/components/CreateTodo.module.scss';
-import CreateTodoModal from '@/components/CreateTodoModal';
+import TodoModal, { MODAL_MODE } from '@/components/TodoModal';
 import { TodoPayload } from '@/utils/interfaces';
 import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
@@ -20,9 +20,10 @@ function CreateTodo({ handleSubmit }: CreateTodoProps) {
       >
         Create Todo
       </Button>
-      <CreateTodoModal
+      <TodoModal
         handleSubmit={handleSubmit}
         show={showCreateTodoModal}
+        mode={MODAL_MODE.CREATE}
         onHide={() => setShowCreateTodoModal(false)}
       />
     </Stack>
