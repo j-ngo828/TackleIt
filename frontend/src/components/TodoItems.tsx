@@ -34,7 +34,7 @@ function TodoItem({
   const [showTodoModal, setShowTodoModal] = useState<boolean>(false);
   return (
     <Row
-      className={`${todoItem.isCompleted ? styles.completedItem : ''} mb-2`}
+      className={`${todoItem.isCompleted ? styles.completedItem : ''} mb-4 align-items-center`}
       gap={2}
       direction="horizontal"
     >
@@ -45,7 +45,7 @@ function TodoItem({
         />
       </Col>
       <Col>
-        <Button variant="primary" onClick={() => setShowTodoModal(true)}>
+        <Button variant="outline-primary" onClick={() => setShowTodoModal(true)}>
           View details
         </Button>
         <TodoModal
@@ -53,10 +53,11 @@ function TodoItem({
           show={showTodoModal}
           mode={MODAL_MODE.EDIT}
           onHide={() => setShowTodoModal(false)}
+          existingTodo={todoItem}
         />
       </Col>
       <Col>
-        <p>{todoItem.title}</p>
+        <p className={styles.todoTitle}>{todoItem.title}</p>
       </Col>
       <Col>
         <Button

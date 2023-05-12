@@ -15,6 +15,7 @@ const todoService = (() => {
   };
 
   const createTodo = async (payload: TodoPayload) => {
+    delete payload.id;
     const createdTodo = await axios.post<ITodoItem>(todosApiRoute, payload);
     return createdTodo;
   };

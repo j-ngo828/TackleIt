@@ -15,6 +15,7 @@ interface TodoModalProps {
   mode: (typeof MODAL_MODE)[keyof typeof MODAL_MODE];
   onHide: () => void;
   handleSubmit: (payload: TodoPayload) => void;
+  existingTodo?: TodoPayload;
 }
 
 interface TodoFormData {
@@ -23,7 +24,7 @@ interface TodoFormData {
   priorityInput: { value: 'high' | 'medium' | 'low' };
 }
 
-function TodoModal({ show, mode, onHide, handleSubmit, ...rest }: TodoModalProps) {
+function TodoModal({ show, mode, onHide, handleSubmit, existingTodo, ...rest }: TodoModalProps) {
   const [validated, setValidated] = useState<boolean>(false);
   const handleHideModal = () => {
     onHide();
@@ -47,6 +48,7 @@ function TodoModal({ show, mode, onHide, handleSubmit, ...rest }: TodoModalProps
               title: titleInput.value,
               description: descriptionInput.value,
               priority: priorityInput.value,
+              id: existingTodo?.id,
             });
             handleHideModal();
           }
@@ -62,6 +64,7 @@ function TodoModal({ show, mode, onHide, handleSubmit, ...rest }: TodoModalProps
               name="titleInput"
               type="text"
               placeholder="Review CS 240 Lecture on priority queue"
+              defaultValue={existingTodo?.title}
               required
             />
             <Form.Control.Feedback type="invalid">Please provide a title.</Form.Control.Feedback>
@@ -71,6 +74,7 @@ function TodoModal({ show, mode, onHide, handleSubmit, ...rest }: TodoModalProps
             <Form.Control
               as="textarea"
               name="descriptionInput"
+              defaultValue={existingTodo?.description}
               placeholder="Go over the lecture slides, tutorials, and assignments. Do LeetCode practice problems with priority queue."
             />
           </Form.Group>
@@ -82,6 +86,7 @@ function TodoModal({ show, mode, onHide, handleSubmit, ...rest }: TodoModalProps
               id="todo.priorityHighInput"
               type="radio"
               label="High"
+              defaultChecked={existingTodo?.priority === 'high'}
             />
             <Form.Check
               name="priorityInput"
@@ -89,7 +94,7 @@ function TodoModal({ show, mode, onHide, handleSubmit, ...rest }: TodoModalProps
               id="todo.priorityMediumInput"
               type="radio"
               label="Medium"
-              defaultChecked
+              defaultChecked={existingTodo ? existingTodo.priority === 'medium' : true}
             />
             <Form.Check
               name="priorityInput"
@@ -97,6 +102,7 @@ function TodoModal({ show, mode, onHide, handleSubmit, ...rest }: TodoModalProps
               id="todo.priorityLowInput"
               type="radio"
               label="Low"
+              defaultChecked={existingTodo?.priority === 'low'}
             />
           </Form.Group>
         </Modal.Body>
