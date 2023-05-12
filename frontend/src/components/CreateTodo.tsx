@@ -1,5 +1,6 @@
 import styles from '@/components/CreateTodo.module.scss';
-import TodoModal, { MODAL_MODE } from '@/components/TodoModal';
+import TodoModal from '@/components/TodoModal';
+import { MODAL_MODE } from '@/utils/constants';
 import { TodoPayload } from '@/utils/interfaces';
 import { useState } from 'react';
 import Button from 'react-bootstrap/Button';

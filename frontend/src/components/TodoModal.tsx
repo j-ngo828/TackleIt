@@ -1,13 +1,9 @@
+import { MODAL_MODE } from '@/utils/constants';
 import { TodoPayload } from '@/utils/interfaces';
 import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
-
-export const MODAL_MODE = Object.freeze({
-  EDIT: 'edit',
-  CREATE: 'create',
-});
 
 const MODAL_TITLE = Object.freeze({
   [MODAL_MODE.CREATE]: 'Create Todo',
