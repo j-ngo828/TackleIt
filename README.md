@@ -6,7 +6,7 @@ A todo list web application to manages daily life tasks.
 
 The app allows users to create and delete todo tasks, as well as the ability to mark them as complete/incomplete. The tasks are displayed neatly in the incomplete or the complete columns.
 
-In addition, users can optionally assign priority to each task and filter todo items by priority.
+In addition, users can optionally assign priority to each task and ~filter todo items by priority~ (will be implemented).
 
 ## Setup development environment
 
