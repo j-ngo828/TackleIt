@@ -77,5 +77,5 @@ to access the application at http://localhost:5173
 
 - [ ] Add user authentication
 - [ ] Handle deployment with Fly.io or AWS
-- [ ] Set up CI pipeline
+- [x] Set up CI pipeline
 - [ ] Set up CD pipeline
